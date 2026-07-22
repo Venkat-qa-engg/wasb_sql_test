@@ -164,5 +164,5 @@ Awesome! Finance will be so happy with us! Our tech guys are still rebuilding th
 code to github and take the rest of the afternoon off to ~~recover~~ relax!
 
 1. Upload all of your code to your forked github repo in a new branch, and create a pull request with your changes into 
-the main branch.
+the qa_test branch.
 2. Share your branch name with your recruiting contact, who will be in touch regarding the results of your test.
