@@ -24,7 +24,9 @@ Let's get the repo forked and Trino installed. We can download a shiny new copy 
 
 1. Fork this github repo.
 2. Download and install docker desktop. Instructions can be found [here](https://www.docker.com/products/docker-desktop/).
-3. Start the SExI container, by running `docker run --name=sexi-silverbullet -d trinodb/trino` at a terminal
+3. Start the SExI container, by running `docker run --name=sexi-silverbullet -p 8080:8080 -d trinodb/trino` at a 
+terminal. This publishes trino on `localhost:8080`, so you can connect to it from your own code later on. (If port 8080 
+is already taken on your machine, use something like `-p 8081:8080` instead.)
 4. You can reset the database at any time by running `docker restart sexi-silverbullet` at a terminal
 5. You can access a trino SQL shell using `docker exec -it sexi-silverbullet trino`. Here you can run any SQL commands 
 you like, as long as they're supported by trino.
@@ -133,6 +135,28 @@ payment plan so you can check your work:
     - payments start at the end of this month.
 2. Add all of the SQL queries you wrote for this task into the `generate_supplier_payment_plans.sql` file. Make sure 
 the file is a valid SQL file. 
+
+#
+
+Hold on. Before we ship any of this, Tim just asked me — with a straight face — how we know it's all correct. And, well. 
+He traded the last finance system for mince pies, so I'd rather not repeat that conversation. Let's prove our work.
+
+Don't worry, we don't need to test everything — just pick one thing and do it properly. Let's prove out the expenses 
+report, since that's the one the Chief of Staff is going to be reading.
+
+1. Write automated tests in Python that validate your `calculate_largest_expensors.sql` query. Please use `pytest` — 
+it's what we use here, and it keeps things consistent for whoever reviews your work.
+2. Put your tests in a `tests/` directory, along with a `tests/requirements.txt` and a line or two on how to run them. 
+The [`trino`](https://pypi.org/project/trino/) package gives you a client for talking to the database on 
+`localhost:8080`.
+
+Just the one query is plenty — we're far more interested in *how* you approach testing than in how much you cover. Some 
+things you might think about:
+- What counts as correct here? Consider the amounts, the ordering, and who does and doesn't show up in the results.
+- How does your test get the database into a known state before it asserts anything? `docker restart 
+sexi-silverbullet` resets everything, and your `create_*.sql` files will reload it.
+- If something is awkward to test because of the way the SQL is written, say so in your README. That's a useful 
+finding, not a failure.
 
 #
 
