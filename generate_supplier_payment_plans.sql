@@ -11,6 +11,6 @@ SELECT
     supplier_id,
     balance_outstanding,
     max_due_date,
-    ROUND(balance_outstanding / 12, 2) AS monthly_payment_amount,
+    ROUND(balance_outstanding / 12.0, 2) AS monthly_payment_amount,
     LAST_DAY_OF_MONTH(CURRENT_DATE) AS payment_date
 FROM supplier_totals;
